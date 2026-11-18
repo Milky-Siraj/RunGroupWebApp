@@ -1,0 +1,92 @@
+﻿
+@model RunGroupWebApp.Models.Club
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<div class="container py-4">
+
+    <!-- Page Heading -->
+    <div class="mb-4">
+        <h2>@Model.Title</h2>
+        <p class="text-muted">
+            @(Model.Address?.City ?? "City not available"),
+            @(Model.Address?.State ?? "State not available")
+        </p>
+    </div>
+
+    <!-- Main Details -->
+    <div class="row mb-4">
+
+        <!-- Club Image -->
+        <div class="col-lg-7 mb-4">
+            @if (!string.IsNullOrEmpty(Model.Image))
+            {
+                <img src="@Model.Image"
+                     alt="@Model.Title"
+                     class="img-fluid rounded w-100"
+                     style="height: 400px; object-fit: cover;" />
+            }
+            else
+            {
+                <div class="bg-light d-flex align-items-center justify-content-center"
+                     style="height: 400px;">
+                    <span class="text-muted">No image available</span>
+                </div>
+            }
+        </div>
+
+        <!-- Club Information -->
+        <div class="col-lg-4 offset-lg-1">
+
+            <h4>Club Description</h4>
+
+            <p>
+                @Model.Description
+            </p>
+
+            <h4 class="mt-4">Club Details</h4>
+
+            <ul>
+                <li>Category: @Model.ClubCategory</li>
+                <li>City: @(Model.Address?.City ?? "Not available")</li>
+                <li>State: @(Model.Address?.State ?? "Not available")</li>
+            </ul>
+
+            <a href="#" class="btn btn-success mt-3">
+                Join Club
+            </a>
+
+        </div>
+    </div>
+
+    <!-- Related Clubs -->
+    <div class="mt-4">
+        <h4 class="mb-3">Related Clubs</h4>
+
+        <div class="row">
+
+            @for (int i = 0; i < 4; i++)
+            {
+                <div class="col-md-3 mb-4">
+                    <div class="card h-100">
+                        <div class="bg-light d-flex align-items-center justify-content-center"
+                             style="height: 150px;">
+                            <span class="text-muted">Club image</span>
+                        </div>
+
+                        <div class="card-body">
+                            <h5 class="card-title">Related Club</h5>
+                            <p class="card-text text-muted">
+                                Discover another running club.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+
+</div>
