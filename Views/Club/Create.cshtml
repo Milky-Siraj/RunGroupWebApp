@@ -1,25 +1,28 @@
-﻿@model Club
+﻿@model RunGroupWebApp.Models.Club
+
 @using RunGroupWebApp.Data.Enum
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
 }
-<form>
+<form method="post" asp-action="Create">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
   <div class="form-group">
     <label asp-for="Title">Title</label>
     <input asp-for="Title" class="form-control" placeholder="Title">
-    <span asp-vaildation-form="Title" class="text-danger"></span>
+    <span asp-vaildation-for="Title" class="text-danger"></span>
   </div>
  <div class="form-group">
     <label asp-for="Description">Description</label>
     <input asp-for="Description" class="form-control" placeholder="Description">
-    <span asp-vaildation-form="Description" class="text-danger"></span>
+    <span asp-vaildation-for="Description" class="text-danger"></span>
   </div>
  <div class="form-group">
     <label asp-for="Image">Image</label>
     <input asp-for="Image" class="form-control" placeholder="Image">
-    <span asp-vaildation-form="Image" class="text-danger"></span>
+    <span asp-vaildation-for="Image" class="text-danger"></span>
   </div>
     <div class="form-group">
    <label asp-for="ClubCategory">ClubCategory</label>
@@ -30,21 +33,21 @@
     <option value="">--Select--</option>
 
 </select>
-   <span asp-vaildation-form="ClubCategory" class="text-danger"></span>
+   <span asp-vaildation-for="ClubCategory" class="text-danger"></span>
  </div>
   <div class="form-group">
     <label asp-for="Address.Street">Street</label>
     <input asp-for="Address.Street" class="form-control" placeholder="Street">
-    <span asp-vaildation-form="Address.Street" class="text-danger"></span>
+    <span asp-vaildation-for="Address.Street" class="text-danger"></span>
   </div><div class="form-group">
     <label asp-for="Address.City">City</label>
     <input asp-for="Address.City" class="form-control" placeholder="City">
-    <span asp-vaildation-form="Address.City" class="text-danger"></span>
+    <span asp-vaildation-for="Address.City" class="text-danger"></span>
   </div>
   <div class="form-group">
     <label asp-for="Address.State">State</label>
     <input asp-for="Address.State" class="form-control" placeholder="State">
-    <span asp-vaildation-form="Address.State" class="text-danger"></span>
+    <span asp-vaildation-for="Address.State" class="text-danger"></span>
   </div>
 
   <button type="submit" class="btn btn-primary">Submit</button>

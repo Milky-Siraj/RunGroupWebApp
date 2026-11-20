@@ -33,6 +33,29 @@ namespace RunGroupWebApp.Controllers
         public IActionResult Create()
         {
             return View();
+
+        }
+       
+        [HttpPost]
+        public IActionResult Create(Club club)
+        {
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState
+                    .Where(x => x.Value.Errors.Count > 0)
+                    .Select(x => new
+                    {
+                        Field = x.Key,
+                        Errors = x.Value.Errors.Select(e => e.ErrorMessage)
+                    })
+                    .ToList();
+
+                return View(club);
+            }
+
+            _clubRepository.Add(club);
+
+            return RedirectToAction("Index");
         }
     }
 }
