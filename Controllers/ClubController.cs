@@ -1,24 +1,25 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using RunGroupWebApp.Data;
+﻿
+using Microsoft.AspNetCore.Mvc;
 using RunGroupWebApp.Interfaces;
 using RunGroupWebApp.Models;
-using System.Runtime.InteropServices;
+using RunGroupWebApp.ViewModels;
 
 namespace RunGroupWebApp.Controllers
 {
     public class ClubController : Controller
     {
-        
         private readonly IClubRepository _clubRepository;
-        public ClubController( IClubRepository clubRepository)
-        {
-            
-            _clubRepository = clubRepository;
+        private readonly IPhotoService _photoService;
 
+        public ClubController(
+            IClubRepository clubRepository,
+            IPhotoService photoService)
+        {
+            _clubRepository = clubRepository;
+            _photoService = photoService;
         }
 
-        public async Task<ActionResult> Index()
+        public async Task<IActionResult> Index()
         {
             IEnumerable<Club> clubs = await _clubRepository.GetAll();
             return View(clubs);
@@ -30,28 +31,41 @@ namespace RunGroupWebApp.Controllers
             return View(club);
         }
 
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
-
         }
-       
+
         [HttpPost]
-        public IActionResult Create(Club club)
+        public async Task<IActionResult> Create(CreateClubViewModel clubVM)
         {
             if (!ModelState.IsValid)
             {
-                var errors = ModelState
-                    .Where(x => x.Value.Errors.Count > 0)
-                    .Select(x => new
-                    {
-                        Field = x.Key,
-                        Errors = x.Value.Errors.Select(e => e.ErrorMessage)
-                    })
-                    .ToList();
-
-                return View(club);
+                return View(clubVM);
             }
+
+            var result = await _photoService.AddPhotoAsync(clubVM.Image);
+
+            if (result.Error != null)
+            {
+                ModelState.AddModelError("Image", result.Error.Message);
+                return View(clubVM);
+            }
+
+            var club = new Club
+            {
+                Title = clubVM.Title,
+                Description = clubVM.Description,
+                Image = result.Url.ToString(),
+
+                Address = new Address
+                {
+                    Street = clubVM.Address.Street,
+                    City = clubVM.Address.City,
+                    State = clubVM.Address.State
+                }
+            };
 
             _clubRepository.Add(club);
 

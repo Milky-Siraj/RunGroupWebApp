@@ -14,7 +14,7 @@ namespace RunGroupWebApp.Services
             var acc = new Account(
                 config.Value.CloudName,
                 config.Value.ApiKey,
-                config.Value.ApiSecret,
+                config.Value.ApiSecret
 
                 );
             _cloudinary = new Cloudinary(acc);
@@ -29,10 +29,18 @@ namespace RunGroupWebApp.Services
                 var uploadParams = new ImageUploadParams
                 {
                     File = new FileDescription(file.FileName, stream),
-                    Transformation = new Transformation().Height(500).Widthr(500).Crop("fill").Gravity("face")
+                    Transformation = new Transformation().Height(500).Width(500).Crop("fill").Gravity("face")
 
                 };
-                uploadResult = await _cloudinary.UploadAsync(uploadParams);
+                try
+                {
+                    uploadResult = await _cloudinary.UploadAsync(uploadParams);
+                }
+                catch (HttpRequestException ex)
+                {
+                    Console.WriteLine("Cloudinary connection error: " + ex.Message);
+                    throw;
+                }
             }
             return uploadResult;
         }
