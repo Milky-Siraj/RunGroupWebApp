@@ -1,4 +1,4 @@
-﻿@model RunGroupWebApp.Models.Race
+﻿@model RunGroupWebApp.ViewModels.CreateRaceViewModel
 
 @using RunGroupWebApp.Data.Enum
 @*
@@ -6,7 +6,7 @@
 *@
 @{
 }
-<form method="post" asp-action="Create">
+<form method="post" asp-action="Create" enctype="multipart/form-data">
     <div asp-validation-summary="All" class="text-danger"></div>
 
   <div class="form-group">
@@ -19,11 +19,7 @@
     <input asp-for="Description" class="form-control" placeholder="Description">
         <span asp-validation-for="Description" class="text-danger"></span>
   </div>
- <div class="form-group">
-    <label asp-for="Image">Image</label>
-    <input asp-for="Image" class="form-control" placeholder="Image">
-        <span asp-validation-for="Image" class="text-danger"></span>
-  </div>
+ 
     <div class="form-group">
    <label asp-for="RaceCategory">RaceCategory</label>
   <select asp-for="RaceCategory"
@@ -49,6 +45,11 @@
     <input asp-for="Address.State" class="form-control" placeholder="State">
     <span asp-validation-for="Address.State" class="text-danger"></span>
   </div>
+<div class="form-group">
+    <label asp-for="Image">Image</label>
+    <input asp-for="Image" type="file" class="form-control" placeholder="Image">
+    <span asp-validation-for="Image" class="text-danger"></span>
+</div>
 
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
