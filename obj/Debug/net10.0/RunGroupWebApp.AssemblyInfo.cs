@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RunGroupWebApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+27b769dafb1b5a808db46ca3cffdde50abd779dd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1a3a6183d7d4b2fa5b83a6eee888897592251190")]
 [assembly: System.Reflection.AssemblyProductAttribute("RunGroupWebApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RunGroupWebApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
